@@ -8,6 +8,6 @@
 ```smalltalk
 Metacello new
    baseline: 'IngSoft2';
-   githubUser: 'PatoRat' project: 'new_project_return_self' commitish: 'master' path: 'repository';
+   githubUser: 'PatoRat' project: 'new_project_return_self' commitish: 'main' path: 'repository';
    load: 'development'.
 ```
