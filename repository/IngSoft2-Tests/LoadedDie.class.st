@@ -10,6 +10,7 @@ Class {
 
 { #category : 'creation' }
 LoadedDie class >> createWith: aNumberToThrow [
+
 	self validate: aNumberToThrow.
 	^ self new initializeWith: aNumberToThrow
 ]

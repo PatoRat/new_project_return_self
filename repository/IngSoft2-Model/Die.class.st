@@ -10,6 +10,7 @@ Class {
 
 { #category : 'creation' }
 Die class >> createWith: aNumberOfFaces [
+
 	self validate: aNumberOfFaces.
 	^ self new initializeWith: aNumberOfFaces
 ]

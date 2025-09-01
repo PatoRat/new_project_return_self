@@ -5,7 +5,7 @@ Class {
 	#package : 'IngSoft2-Tests'
 }
 
-{ #category : 'exception handling' }
+{ #category : 'asserting' }
 DieTest >> should: aCodeBlock raiseWith: anErrorMessage [
 
 	self
@@ -34,7 +34,9 @@ DieTest >> testWhenThrowingALoeadedDieItReturnsTheIndicatedNumber [
 { #category : 'tests' }
 DieTest >> testWhenTryingToCreateADieWithFacesLowerThan4ItRaisesAnError [
 
-	self should: [ Die createWith: -2 ] raiseWith: 'Minimum amount of faces should be 4.'.
+	self
+		should: [ Die createWith: -2 ]
+		raiseWith: 'Minimum amount of faces should be 4.'
 ]
 
 { #category : 'tests' }
