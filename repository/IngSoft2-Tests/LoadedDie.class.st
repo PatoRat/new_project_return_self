@@ -8,10 +8,17 @@ Class {
 	#package : 'IngSoft2-Tests'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'creation' }
 LoadedDie class >> createWith: aNumberToThrow [
-
+	self validate: aNumberToThrow.
 	^ self new initializeWith: aNumberToThrow
+]
+
+{ #category : 'validation' }
+LoadedDie class >> validate: aNumberToThrow [
+
+	aNumberToThrow < 1 ifTrue: [
+		Error signal: 'The die cannot throw a number lower than 1.' ]
 ]
 
 { #category : 'initialization' }
@@ -20,7 +27,7 @@ LoadedDie >> initializeWith: aNumberToThrow [
 	throwResult := aNumberToThrow
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'calculating' }
 LoadedDie >> throw [
 
 	^ throwResult
