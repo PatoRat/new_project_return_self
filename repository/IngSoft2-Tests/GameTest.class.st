@@ -6,41 +6,7 @@ Class {
 }
 
 { #category : 'tests' }
-GameTest >> testWhenTheGameIsPlayedAFullRoundAllPlayersShipsMoved [
-
-	| aGame aListOfNames aDie aGoalMark aShip anotherShip |
-	"aPlayerName := 'Pato'. DEPRECATED"
-	aListOfNames := { 'Pato'. 'Mati' }.
-	aGoalMark := 12.
-	aDie := LoadedDie createWith: 6.
-	aGame := Game createWith: aListOfNames and: aDie and: aGoalMark.
-
-	aGame playFullRound.
-
-	aShip := (aGame returnPlayerWithId: 1) ship.
-	anotherShip := (aGame returnPlayerWithId: 2) ship.
-
-	self assert: aShip position equals: 7.
-	self deny: anotherShip position equals: 1
-]
-
-{ #category : 'tests' }
-GameTest >> testWhenTheGameIsPlayedUntilIsFinishedTheresAWinner [
-
-	| aGame aListOfNames aDie aGoalMark |
-	"aPlayerName := 'Pato'. DEPRECATED"
-	aListOfNames := { 'Pato'. 'Mati' }.
-	aGoalMark := 12.
-	aDie := LoadedDie createWith: 6.
-	aGame := Game createWith: aListOfNames and: aDie and: aGoalMark.
-
-	aGame playFullGame.
-
-	self assert: (aGame isWinner: 'Pato')
-]
-
-{ #category : 'tests' }
-GameTest >> testWhenThePlayerThrowsItsShipMovesForward [
+GameTest >> test010WhenThePlayerThrowsItsShipMovesForward [
 
 	| aGame aListOfNames aDie aGoalMark aShip |
 	"aPlayerName := 'Pato'. DEPRECATED"
@@ -57,7 +23,7 @@ GameTest >> testWhenThePlayerThrowsItsShipMovesForward [
 ]
 
 { #category : 'tests' }
-GameTest >> testWhenThePlayersShipIsInTheGoalMarkOrGreaterThenItWins [
+GameTest >> test011WhenThePlayersShipIsInTheGoalMarkOrGreaterThenItWins [
 
 	| aGame aListOfNames aDie aGoalMark |
 	"aPlayerName := 'Pato'. DEPRECATED"
@@ -67,6 +33,38 @@ GameTest >> testWhenThePlayersShipIsInTheGoalMarkOrGreaterThenItWins [
 	aGame := Game createWith: aListOfNames and: aDie and: aGoalMark.
 
 	aGame nextPlayerPlays.
+
+	self assert: (aGame isWinner: 'Pato')
+]
+
+{ #category : 'tests' }
+GameTest >> test012WhenTheGameIsPlayedAFullRoundAllPlayersShipsMoved [
+
+	| aGame aListOfNames aDie aGoalMark aShip anotherShip |
+	aListOfNames := { 'Pato'. 'Mati' }.
+	aGoalMark := 12.
+	aDie := LoadedDie createWith: 6.
+	aGame := Game createWith: aListOfNames and: aDie and: aGoalMark.
+
+	aGame playFullRound.
+
+	aShip := (aGame returnPlayerWithId: 1) ship.
+	anotherShip := (aGame returnPlayerWithId: 2) ship.
+
+	self assert: aShip position equals: 7.
+	self deny: anotherShip position equals: 1
+]
+
+{ #category : 'tests' }
+GameTest >> test013WhenTheGameIsPlayedUntilIsFinishedTheresAWinner [
+
+	| aGame aListOfNames aDie aGoalMark |
+	aListOfNames := { 'Pato'. 'Mati' }.
+	aGoalMark := 12.
+	aDie := LoadedDie createWith: 6.
+	aGame := Game createWith: aListOfNames and: aDie and: aGoalMark.
+
+	aGame playFullGame.
 
 	self assert: (aGame isWinner: 'Pato')
 ]

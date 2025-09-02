@@ -2,6 +2,7 @@
 >>> Here I'll leave any notes or ideas for the future or for the structure, in other for other collaborators to read.
 
 - In order to test a full round playing correctly, I must refactor the code to make game able to receive a list of players names. This refactor means the game is no longer played by 1 player.
+>>> FIRST SPRINT ORDERED BY MY BROTHER IS FINISHED <<<
 "
 Class {
 	#name : 'Game',
@@ -64,12 +65,15 @@ Game >> nextPlayerPlays [
 
 { #category : 'playing' }
 Game >> playFullGame [
-	self shouldBeImplemented.
+
+	[ self stillPlaying ] whileTrue: [ self nextPlayerPlays ]
 ]
 
 { #category : 'playing' }
 Game >> playFullRound [
-	self shouldBeImplemented.
+
+	[ self stillPlaying and: nextPlayerIndex < players size ] whileTrue: [
+		self nextPlayerPlays ]
 ]
 
 { #category : 'accessing' }

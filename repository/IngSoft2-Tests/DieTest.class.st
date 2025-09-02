@@ -16,7 +16,7 @@ DieTest >> should: aCodeBlock raiseWith: anErrorMessage [
 ]
 
 { #category : 'tests' }
-DieTest >> testWhenThrowingADieItReturnsARandomNumberBetween1AndTheGreaterFace [
+DieTest >> test001WhenThrowingADieItReturnsARandomNumberBetween1AndTheGreaterFace [
 
 	| aDie |
 	aDie := Die createWith: 6.
@@ -24,15 +24,7 @@ DieTest >> testWhenThrowingADieItReturnsARandomNumberBetween1AndTheGreaterFace [
 ]
 
 { #category : 'tests' }
-DieTest >> testWhenThrowingALoeadedDieItReturnsTheIndicatedNumber [
-
-	| aDie |
-	aDie := LoadedDie createWith: 4.
-	self assert: aDie throw equals: 4
-]
-
-{ #category : 'tests' }
-DieTest >> testWhenTryingToCreateADieWithFacesLowerThan4ItRaisesAnError [
+DieTest >> test002WhenTryingToCreateADieWithFacesLowerThan4ItRaisesAnError [
 
 	self
 		should: [ Die createWith: -2 ]
@@ -40,7 +32,15 @@ DieTest >> testWhenTryingToCreateADieWithFacesLowerThan4ItRaisesAnError [
 ]
 
 { #category : 'tests' }
-DieTest >> testWhenTryingToCreateALoadedDieWithAThrowLowerThan1ItRaisesAnError [
+DieTest >> test003WhenThrowingALoeadedDieItReturnsTheIndicatedNumber [
+
+	| aDie |
+	aDie := LoadedDie createWith: 4.
+	self assert: aDie throw equals: 4
+]
+
+{ #category : 'tests' }
+DieTest >> test004WhenTryingToCreateALoadedDieWithAThrowLowerThan1ItRaisesAnError [
 
 	self
 		should: [ LoadedDie createWith: 0 ]

@@ -16,19 +16,19 @@ ShipTest >> should: aCodeBlock raiseWith: anErrorMessage [
 ]
 
 { #category : 'tests' }
-ShipTest >> testWhenTellingTheShipToMoveForwardItChangesItsPosition [
+ShipTest >> test005WhenTryingToCreateAShipWithAnIdLowerThan1ItRaisesError [
+
+	self
+		should: [ Ship createWith: 0 ]
+		raiseWith: 'ID must be greater than 1.'
+]
+
+{ #category : 'tests' }
+ShipTest >> test006WhenTellingTheShipToMoveForwardItChangesItsPosition [
 
 	| aShip aDie |
 	aDie := LoadedDie createWith: 6.
 	aShip := Ship createWith: 1.
 	aShip := aShip moveForward: aDie throw.
 	self assert: aShip position equals: 7
-]
-
-{ #category : 'tests' }
-ShipTest >> testWhenTryingToCreateAShipWithAnIdLowerThan1ItRaisesError [
-
-	self
-		should: [ Ship createWith: 0 ]
-		raiseWith: 'ID must be greater than 1.'
 ]
