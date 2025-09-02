@@ -16,11 +16,33 @@ PlayerTest >> should: aCodeBlock raiseWith: anErrorMessage [
 ]
 
 { #category : 'tests' }
+PlayerTest >> testAPlayerShouldBeAbleToTellItsName [
+
+	| aPlayer |
+	aPlayer := Player createWith: 'Pato' and: 1 and: (Die createWith: 6).
+
+	self assert: aPlayer name equals: 'Pato'
+]
+
+{ #category : 'tests' }
+PlayerTest >> testWhenAPlayerThrowsADieTheShipMovesForwardTheAmountThrown [
+
+	| aShip aDie aPlayer |
+	aDie := LoadedDie createWith: 6.
+	aPlayer := Player createWith: 'Pato' and: 1 and: aDie.
+	aPlayer moveShipForward.
+	aShip := aPlayer ship.
+	self assert: aShip position equals: 7
+]
+
+{ #category : 'tests' }
 PlayerTest >> testWhenTryingToCreateAPlayerWithoutNameOrIdLowerThan1ItRaisesError [
 
 	self
-		should: [ Player createWith: '' and: 1 ]
+		should: [ Player createWith: '' and: 1 and: (Die createWith: 6) ]
 		raiseWith: 'The Player should have a name.'.
-		
-	self should: [ Player createWith: 'Pato' and: 0 ] raiseWith: 'ID must be greater than 1.'
+
+	self
+		should: [ Player createWith: 'Pato' and: 0 and: (Die createWith: 6) ]
+		raiseWith: 'ID must be greater than 1.'
 ]

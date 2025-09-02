@@ -1,3 +1,6 @@
+"
+A mock object for simulation of a ""random"" throw of a Die
+"
 Class {
 	#name : 'LoadedDie',
 	#superclass : 'Object',

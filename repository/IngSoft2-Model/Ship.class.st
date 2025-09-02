@@ -1,3 +1,6 @@
+"
+A ship
+"
 Class {
 	#name : 'Ship',
 	#superclass : 'Object',
@@ -29,6 +32,12 @@ Ship class >> validateId: anId [
 	anId < 1 ifTrue: [ Error signal: 'ID must be greater than 1.' ]
 ]
 
+{ #category : 'copying' }
+Ship >> copy [
+
+	^ self class createWith: playerId and: position
+]
+
 { #category : 'initialization' }
 Ship >> initializeWith: anId and: aPosition [
 
@@ -36,7 +45,7 @@ Ship >> initializeWith: anId and: aPosition [
 	position := aPosition
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'move' }
 Ship >> moveForward: aDistance [
 	"Should I include a validation for the distance to be positive?"
 

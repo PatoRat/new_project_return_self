@@ -1,3 +1,6 @@
+"
+A die
+"
 Class {
 	#name : 'Die',
 	#superclass : 'Object',
