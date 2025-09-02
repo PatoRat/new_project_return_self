@@ -57,3 +57,9 @@ Ship >> position [
 
 	^ position
 ]
+
+{ #category : 'comparing' }
+Ship >> positionLowerThan: aNumber [
+
+	^ position < aNumber
+]

@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'name',
 		'ship',
-		'die'
+		'die',
+		'id'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -16,10 +17,8 @@ Class {
 { #category : 'creation' }
 Player class >> createWith: aName and: anId and: aDie [
 
-	| aShip |
 	self validate: aName.
-	aShip := Ship createWith: anId.
-	^ self new initializeWith: aName and: aShip and: aDie
+	^ self new initializeWith: aName and: anId and: aDie
 ]
 
 { #category : 'validation' }
@@ -29,12 +28,25 @@ Player class >> validate: aName [
 		Error signal: 'The Player should have a name.' ]
 ]
 
+{ #category : 'accessing' }
+Player >> id [
+
+	^ id
+]
+
 { #category : 'initialization' }
-Player >> initializeWith: aName and: aShip and: aDie [
+Player >> initializeWith: aName and: anId and: aDie [
 
 	name := aName.
-	ship := aShip.
-	die := aDie
+	ship := Ship createWith: anId.
+	die := aDie.
+	id := anId
+]
+
+{ #category : 'testing' }
+Player >> isOver: aDistance [
+
+	^ (ship positionLowerThan: aDistance) not
 ]
 
 { #category : 'move' }
@@ -51,4 +63,16 @@ Player >> name [
 { #category : 'accessing' }
 Player >> ship [
 	^ ship copy
+]
+
+{ #category : 'checking' }
+Player >> withId: anId [
+
+	^ id = anId
+]
+
+{ #category : 'checking' }
+Player >> withName: aName [
+
+	^ name = aName
 ]
