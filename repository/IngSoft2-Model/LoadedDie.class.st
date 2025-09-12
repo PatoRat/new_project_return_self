@@ -7,8 +7,9 @@ Class {
 	#instVars : [
 		'throwResult'
 	],
-	#category : 'IngSoft2-Tests',
-	#package : 'IngSoft2-Tests'
+	#category : 'IngSoft2-Model-Base',
+	#package : 'IngSoft2-Model',
+	#tag : 'Base'
 }
 
 { #category : 'creation' }

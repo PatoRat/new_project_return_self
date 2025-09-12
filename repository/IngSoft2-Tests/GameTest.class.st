@@ -52,7 +52,7 @@ GameTest >> test012WhenTheGameIsPlayedAFullRoundAllPlayersShipsMoved [
 	anotherShip := (aGame returnPlayerWithId: 2) ship.
 
 	self assert: aShip position equals: 7.
-	self deny: anotherShip position equals: 1
+	self assert: anotherShip position equals: 7
 ]
 
 { #category : 'tests' }

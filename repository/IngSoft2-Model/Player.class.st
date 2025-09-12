@@ -10,8 +10,9 @@ Class {
 		'die',
 		'id'
 	],
-	#category : 'IngSoft2-Model',
-	#package : 'IngSoft2-Model'
+	#category : 'IngSoft2-Model-Base',
+	#package : 'IngSoft2-Model',
+	#tag : 'Base'
 }
 
 { #category : 'creation' }
@@ -26,6 +27,12 @@ Player class >> validate: aName [
 
 	aName isEmpty ifTrue: [
 		Error signal: 'The Player should have a name.' ]
+]
+
+{ #category : 'checking' }
+Player >> hasId: anId [
+
+	^ id = anId
 ]
 
 { #category : 'accessing' }
@@ -63,12 +70,6 @@ Player >> name [
 { #category : 'accessing' }
 Player >> ship [
 	^ ship copy
-]
-
-{ #category : 'checking' }
-Player >> withId: anId [
-
-	^ id = anId
 ]
 
 { #category : 'checking' }

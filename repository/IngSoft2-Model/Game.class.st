@@ -12,8 +12,9 @@ Class {
 		'players',
 		'nextPlayerIndex'
 	],
-	#category : 'IngSoft2-Model',
-	#package : 'IngSoft2-Model'
+	#category : 'IngSoft2-Model-Base',
+	#package : 'IngSoft2-Model',
+	#tag : 'Base'
 }
 
 { #category : 'creation' }
@@ -35,6 +36,13 @@ Game class >> validate: aGoalMark [
 
 	aGoalMark < 4 ifTrue: [
 		Error signal: 'The goal cant be nearer than 4 tiles.' ]
+]
+
+{ #category : 'accessing' }
+Game >> getNextPlayer [
+
+	nextPlayerIndex := nextPlayerIndex \\ players size + 1.
+	^ players at: nextPlayerIndex
 ]
 
 { #category : 'initialization' }
@@ -59,7 +67,7 @@ Game >> nextPlayerPlays [
 	| currentPlayer |
 	self stillPlaying ifFalse: [ Error signal: 'The game finished.' ].
 	
-	currentPlayer := self playerInTurn.
+	currentPlayer := self getNextPlayer.
 	currentPlayer moveShipForward
 ]
 
@@ -77,18 +85,12 @@ Game >> playFullRound [
 ]
 
 { #category : 'accessing' }
-Game >> playerInTurn [
-
-	nextPlayerIndex := nextPlayerIndex \\ players size + 1.
-	^ players at: nextPlayerIndex
-]
-
-{ #category : 'accessing' }
 Game >> returnPlayerWithId: anId [
 
 	^ players
-		  detect: [ :player | player withId: anId ]
-		  ifNone: [ Error signal: 'There is no player with this ID.' ]
+		  detect: [ :player | player hasId: anId ]
+		  ifNone: [
+		  Error signal: 'There is no player with ID: ' , anId asString, '.' ]
 ]
 
 { #category : 'checking' }

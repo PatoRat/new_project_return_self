@@ -8,8 +8,9 @@ Class {
 		'playerId',
 		'position'
 	],
-	#category : 'IngSoft2-Model',
-	#package : 'IngSoft2-Model'
+	#category : 'IngSoft2-Model-Base',
+	#package : 'IngSoft2-Model',
+	#tag : 'Base'
 }
 
 { #category : 'creation' }

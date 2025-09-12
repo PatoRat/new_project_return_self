@@ -5,20 +5,10 @@ Class {
 	#package : 'IngSoft2-Tests'
 }
 
-{ #category : 'asserting' }
-ShipTest >> should: aCodeBlock raiseWith: anErrorMessage [
-
-	self
-		should: aCodeBlock
-		raise: Error
-		withExceptionDo: [ :error |
-		self assert: error messageText equals: anErrorMessage ]
-]
-
 { #category : 'tests' }
 ShipTest >> test005WhenTryingToCreateAShipWithAnIdLowerThan1ItRaisesError [
 
-	self
+	TestUtils
 		should: [ Ship createWith: 0 ]
 		raiseWith: 'ID must be greater than 1.'
 ]
