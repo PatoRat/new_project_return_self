@@ -39,6 +39,15 @@ Ship >> copy [
 	^ self class createWith: playerId and: position
 ]
 
+{ #category : 'comparing' }
+Ship >> equals: anotherShip [
+	"Same as in player, id is enough to state equality
+	^ playerId = anotherShip playerId and:
+		  position = anotherShip position"
+
+	^ playerId = anotherShip playerId
+]
+
 { #category : 'initialization' }
 Ship >> initializeWith: anId and: aPosition [
 
@@ -51,6 +60,12 @@ Ship >> moveForward: aDistance [
 	"Should I include a validation for the distance to be positive?"
 
 	^ self class createWith: playerId and: position + aDistance
+]
+
+{ #category : 'accessing' }
+Ship >> playerId [
+
+	^ playerId
 ]
 
 { #category : 'accessing' }

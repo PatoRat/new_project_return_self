@@ -29,6 +29,15 @@ Player class >> validate: aName [
 		Error signal: 'The Player should have a name.' ]
 ]
 
+{ #category : 'comparing' }
+Player >> equals: anotherPlayer [
+	"This would be a complete comparison, but I'll go for another alternative since id is unique for every player
+	^ id = anotherPlayer id and:
+		  (name = anotherPlayer name and: (ship equals: anotherPlayer ship))"
+
+	^ id = anotherPlayer id
+]
+
 { #category : 'checking' }
 Player >> hasId: anId [
 
