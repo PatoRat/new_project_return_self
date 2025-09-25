@@ -6,9 +6,19 @@ Class {
 }
 
 { #category : 'tests' }
-ShipTest >> testBanana [
+ShipTest >> test005WhenTryingToCreateAShipWithAPositionLowerThan1ItRaisesError [
 
-	| ship |
-	ship := Ship new.
-	self assert: true
+	TestUtils
+		should: [ Ship createWith: 0 ]
+		raiseWith: 'Position must be greater than 1.'
+]
+
+{ #category : 'tests' }
+ShipTest >> test006WhenTellingTheShipToMoveForwardItChangesItsPosition [
+
+	| aShip aDie |
+	aDie := LoadedDie createWith: 6.
+	aShip := Ship createWith: 1.
+	aShip := aShip moveForward: aDie throw.
+	self assert: (aShip isInPosition: 7)
 ]

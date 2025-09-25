@@ -1,53 +1,58 @@
+"
+A ship
+"
 Class {
 	#name : 'Ship',
 	#superclass : 'Object',
 	#instVars : [
-		'position',
-		'id'
+		'position'
 	],
-	#category : 'IngSoft2-Model',
-	#package : 'IngSoft2-Model'
+	#category : 'IngSoft2-Model-Base',
+	#package : 'IngSoft2-Model',
+	#tag : 'Base'
 }
 
-{ #category : 'as yet unclassified' }
-Ship class >> createWith: anId [
+{ #category : 'creation' }
+Ship class >> createWith: aPosition [
 
-	^ self new initializeWith: anId and: 0
+	self validatePosition: aPosition.
+	^ self new initializeWith: aPosition
 ]
 
-{ #category : 'as yet unclassified' }
-Ship class >> createWith: anId and: aPosition [
+{ #category : 'validation' }
+Ship class >> validatePosition: aPosition [
 
-	^ self new initializeWith: anId and: aPosition
+	aPosition < 1 ifTrue: [
+		Error signal: 'Position must be greater than 1.' ]
 ]
 
-{ #category : 'comparing' }
-Ship >> equals: aShip [
+{ #category : 'copying' }
+Ship >> copy [
 
-	^ id = aShip id
-]
-
-{ #category : 'accessing' }
-Ship >> id [
-
-	^ id
+	^ self class createWith: position
 ]
 
 { #category : 'initialization' }
-Ship >> initializeWith: anId and: aPosition [
+Ship >> initializeWith: aPosition [
 
-	id := anId.
 	position := aPosition
 ]
 
-{ #category : 'as yet unclassified' }
-Ship >> moveForward: aDistance [
+{ #category : 'accessing' }
+Ship >> isInPosition: aPosition [
 
-	^ self class createWith: id and: position + aDistance
+	^ position = aPosition
 ]
 
-{ #category : 'accessing' }
-Ship >> position [
+{ #category : 'move' }
+Ship >> moveForward: aDistance [
+	"Should I include a validation for the distance to be positive?"
 
-	^ position
+	^ self class createWith: position + aDistance
+]
+
+{ #category : 'comparing' }
+Ship >> positionLowerThan: aNumber [
+
+	^ position < aNumber
 ]
