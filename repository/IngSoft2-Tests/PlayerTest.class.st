@@ -9,30 +9,20 @@ Class {
 PlayerTest >> test007WhenTryingToCreateAPlayerWithoutNameOrIdLowerThan1ItRaisesError [
 
 	TestUtils
-		should: [ Player createWith: '' and: 1 and: (Die createWith: 6) ]
+		should: [ Player createWith: '' and: 1 ]
 		raiseWith: 'The Player should have a name.'.
 
 	TestUtils
-		should: [ Player createWith: 'Pato' and: 0 and: (Die createWith: 6) ]
+		should: [ Player createWith: 'Pato' and: 0 ]
 		raiseWith: 'ID must be greater than 1.'
-]
-
-{ #category : 'tests' }
-PlayerTest >> test008APlayerShouldBeAbleToTellItsName [
-
-	| aPlayer |
-	aPlayer := Player createWith: 'Pato' and: 1 and: (Die createWith: 6).
-
-	self assert: aPlayer name equals: 'Pato'
 ]
 
 { #category : 'tests' }
 PlayerTest >> test009WhenAPlayerThrowsADieTheShipMovesForwardTheAmountThrown [
 
-	| aShip aDie aPlayer |
+	| aDie aPlayer |
 	aDie := LoadedDie createWith: 6.
-	aPlayer := Player createWith: 'Pato' and: 1 and: aDie.
-	aPlayer moveShipForward.
-	aShip := aPlayer ship.
-	self assert: aShip position equals: 7
+	aPlayer := Player createWith: 'Pato' and: 1.
+	aPlayer moveShipForwardWith: aDie throw.
+	self assert: (aPlayer isInPosition: 7)
 ]

@@ -5,7 +5,6 @@ Class {
 	#name : 'Ship',
 	#superclass : 'Object',
 	#instVars : [
-		'playerId',
 		'position'
 	],
 	#category : 'IngSoft2-Model-Base',
@@ -14,64 +13,42 @@ Class {
 }
 
 { #category : 'creation' }
-Ship class >> createWith: anId [
+Ship class >> createWith: aPosition [
 
-	self validateId: anId.
-	^ self new initializeWith: anId and: 1
-]
-
-{ #category : 'creation' }
-Ship class >> createWith: anId and: aPosition [
-
-	self validateId: anId.
-	^ self new initializeWith: anId and: aPosition
+	self validatePosition: aPosition.
+	^ self new initializeWith: aPosition
 ]
 
 { #category : 'validation' }
-Ship class >> validateId: anId [
+Ship class >> validatePosition: aPosition [
 
-	anId < 1 ifTrue: [ Error signal: 'ID must be greater than 1.' ]
+	aPosition < 1 ifTrue: [
+		Error signal: 'Position must be greater than 1.' ]
 ]
 
 { #category : 'copying' }
 Ship >> copy [
 
-	^ self class createWith: playerId and: position
-]
-
-{ #category : 'comparing' }
-Ship >> equals: anotherShip [
-	"Same as in player, id is enough to state equality
-	^ playerId = anotherShip playerId and:
-		  position = anotherShip position"
-
-	^ playerId = anotherShip playerId
+	^ self class createWith: position
 ]
 
 { #category : 'initialization' }
-Ship >> initializeWith: anId and: aPosition [
+Ship >> initializeWith: aPosition [
 
-	playerId := anId.
 	position := aPosition
+]
+
+{ #category : 'accessing' }
+Ship >> isInPosition: aPosition [
+
+	^ position = aPosition
 ]
 
 { #category : 'move' }
 Ship >> moveForward: aDistance [
 	"Should I include a validation for the distance to be positive?"
 
-	^ self class createWith: playerId and: position + aDistance
-]
-
-{ #category : 'accessing' }
-Ship >> playerId [
-
-	^ playerId
-]
-
-{ #category : 'accessing' }
-Ship >> position [
-
-	^ position
+	^ self class createWith: position + aDistance
 ]
 
 { #category : 'comparing' }

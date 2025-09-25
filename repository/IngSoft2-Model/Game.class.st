@@ -10,7 +10,8 @@ Class {
 	#instVars : [
 		'goalMark',
 		'players',
-		'nextPlayerIndex'
+		'nextPlayerIndex',
+		'die'
 	],
 	#category : 'IngSoft2-Model-Base',
 	#package : 'IngSoft2-Model',
@@ -18,16 +19,14 @@ Class {
 }
 
 { #category : 'creation' }
-Game class >> createWith: aListOfNames and: aDie and: aGoalMark [
+Game class >> createWith: aPlayerList and: aDie and: aGoalMark [
 
-	| aPlayerList playerIndex |
+	| playerIndex |
 	playerIndex := 0.
 	self validate: aGoalMark.
-	aPlayerList := aListOfNames asOrderedCollection collect: [ :aName |
-		               playerIndex := playerIndex + 1.
-		               Player createWith: aName and: playerIndex and: aDie ].
 	^ self new
-		  initializeWith: aPlayerList asOrderedCollection
+		  initializeWith: aPlayerList asOrderedCollection deepCopy
+		  and: aDie
 		  and: aGoalMark
 ]
 
@@ -38,50 +37,44 @@ Game class >> validate: aGoalMark [
 		Error signal: 'The goal cant be nearer than 4 tiles.' ]
 ]
 
-{ #category : 'accessing' }
-Game >> getNextPlayer [
-
-	nextPlayerIndex := nextPlayerIndex \\ players size + 1.
-	^ players at: nextPlayerIndex
-]
-
 { #category : 'initialization' }
-Game >> initializeWith: aPlayerList and: aGoalMark [
+Game >> initializeWith: aPlayerList and: aDie and: aGoalMark [
 
+	die := aDie.
 	goalMark := aGoalMark.
 	players := aPlayerList.
 	nextPlayerIndex := 0
 ]
 
 { #category : 'testing' }
-Game >> isWinner: aName [
+Game >> isWinner: aPlayer [
 
 	| playerToVerify |
-	playerToVerify := players detect: [ :player | player withName: aName ].
+	playerToVerify := players detect: [ :player | player equals: aPlayer ].
 	^ playerToVerify isOver: goalMark
 ]
 
 { #category : 'playing' }
 Game >> nextPlayerPlays [
-	
+
 	| currentPlayer |
-	self stillPlaying ifFalse: [ Error signal: 'The game finished.' ].
-	
-	currentPlayer := self getNextPlayer.
-	currentPlayer moveShipForward
+	self stillPlaying ifFalse: [  ].
+
+	nextPlayerIndex := nextPlayerIndex \\ players size + 1.
+	currentPlayer := players at: nextPlayerIndex.
+	currentPlayer moveShipForwardWith: die throw
 ]
 
-{ #category : 'playing' }
-Game >> playFullGame [
+{ #category : 'accessing' }
+Game >> player: aPlayer isInPosition: aPosition [
 
-	[ self stillPlaying ] whileTrue: [ self nextPlayerPlays ]
-]
 
-{ #category : 'playing' }
-Game >> playFullRound [
-
-	[ self stillPlaying and: nextPlayerIndex < players size ] whileTrue: [
-		self nextPlayerPlays ]
+	| detectedPlayer |
+	detectedPlayer:= players
+		  detect: [ :player | player equals: aPlayer ]
+		  ifNone: [
+		  Error signal: 'There is no player with ID: ' , aPlayer id asString, '.' ].
+	^ detectedPlayer isInPosition: aPosition
 ]
 
 { #category : 'accessing' }
@@ -96,7 +89,5 @@ Game >> returnPlayerWithId: anId [
 { #category : 'checking' }
 Game >> stillPlaying [
 
-	| ships |
-	ships := players collect: [ :player | player ship ].
-	^ ships allSatisfy: [ :ship | ship positionLowerThan: goalMark ]
+	^ players allSatisfy: [ :player | (player isOver: goalMark) not ]
 ]

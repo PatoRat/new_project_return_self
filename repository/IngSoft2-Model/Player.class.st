@@ -5,10 +5,9 @@ Class {
 	#name : 'Player',
 	#superclass : 'Object',
 	#instVars : [
-		'name',
 		'ship',
-		'die',
-		'id'
+		'id',
+		'name'
 	],
 	#category : 'IngSoft2-Model-Base',
 	#package : 'IngSoft2-Model',
@@ -16,17 +15,19 @@ Class {
 }
 
 { #category : 'creation' }
-Player class >> createWith: aName and: anId and: aDie [
+Player class >> createWith: aName and: anId [
 
-	self validate: aName.
-	^ self new initializeWith: aName and: anId and: aDie
+	self validate: aName and: anId.
+	^ self new initializeWith: aName and: anId
 ]
 
 { #category : 'validation' }
-Player class >> validate: aName [
+Player class >> validate: aName and: anId [
 
 	aName isEmpty ifTrue: [
-		Error signal: 'The Player should have a name.' ]
+		Error signal: 'The Player should have a name.' ].
+
+	anId < 1 ifTrue: [ Error signal: 'ID must be greater than 1.' ]
 ]
 
 { #category : 'comparing' }
@@ -38,12 +39,6 @@ Player >> equals: anotherPlayer [
 	^ id = anotherPlayer id
 ]
 
-{ #category : 'checking' }
-Player >> hasId: anId [
-
-	^ id = anId
-]
-
 { #category : 'accessing' }
 Player >> id [
 
@@ -51,12 +46,16 @@ Player >> id [
 ]
 
 { #category : 'initialization' }
-Player >> initializeWith: aName and: anId and: aDie [
+Player >> initializeWith: aName and: anId [
 
-	name := aName.
-	ship := Ship createWith: anId.
-	die := aDie.
-	id := anId
+	ship := Ship createWith: 1.
+	id := anId.
+	name := aName
+]
+
+{ #category : 'testing' }
+Player >> isInPosition: aPosition [
+^ ship isInPosition: aPosition
 ]
 
 { #category : 'testing' }
@@ -66,23 +65,6 @@ Player >> isOver: aDistance [
 ]
 
 { #category : 'move' }
-Player >> moveShipForward [
-	ship := ship moveForward: die throw
-]
-
-{ #category : 'accessing' }
-Player >> name [
-
-	^ name
-]
-
-{ #category : 'accessing' }
-Player >> ship [
-	^ ship copy
-]
-
-{ #category : 'checking' }
-Player >> withName: aName [
-
-	^ name = aName
+Player >> moveShipForwardWith: aDistance [
+	ship := ship moveForward: aDistance
 ]

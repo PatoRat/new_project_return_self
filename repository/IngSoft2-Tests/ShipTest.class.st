@@ -6,11 +6,11 @@ Class {
 }
 
 { #category : 'tests' }
-ShipTest >> test005WhenTryingToCreateAShipWithAnIdLowerThan1ItRaisesError [
+ShipTest >> test005WhenTryingToCreateAShipWithAPositionLowerThan1ItRaisesError [
 
 	TestUtils
 		should: [ Ship createWith: 0 ]
-		raiseWith: 'ID must be greater than 1.'
+		raiseWith: 'Position must be greater than 1.'
 ]
 
 { #category : 'tests' }
@@ -20,5 +20,5 @@ ShipTest >> test006WhenTellingTheShipToMoveForwardItChangesItsPosition [
 	aDie := LoadedDie createWith: 6.
 	aShip := Ship createWith: 1.
 	aShip := aShip moveForward: aDie throw.
-	self assert: aShip position equals: 7
+	self assert: (aShip isInPosition: 7)
 ]
